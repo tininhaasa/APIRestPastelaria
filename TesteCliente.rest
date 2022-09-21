@@ -1,11 +1,17 @@
 ### Verbo GET – listar
 GET http://localhost:8000/cliente/ HTTP/1.1
+x-token: abcBolinhasToken
+x-key: abcBolinhasKey
 
 ### Verbo GET – listar com id
 GET http://localhost:8000/cliente/1 HTTP/1.1
+x-token: abcBolinhasToken
+x-key: abcBolinhasKey
 
 ### Verbo POST – adicionar
 POST http://127.0.0.1:8000/cliente/ HTTP/1.1
+x-token: abcBolinhasToken
+x-key: abcBolinhasKey
 content-type: application/json
 
 {
@@ -20,6 +26,8 @@ content-type: application/json
 
 ### Verbo PUT – atualiza
 PUT http://127.0.0.1:8000/cliente/1 HTTP/1.1
+x-token: abcBolinhasToken
+x-key: abcBolinhasKey
 content-type: application/json
 
 {
@@ -34,3 +42,5 @@ content-type: application/json
 
 ### Verbo DELETE - excluir
 DELETE http://127.0.0.1:8000/cliente/1 HTTP/1.1
+x-token: abcBolinhasToken
+x-key: abcBolinhasKey
