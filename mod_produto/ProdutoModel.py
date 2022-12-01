@@ -11,11 +11,13 @@ class ProdutoDB(db.Base):
     qtd = Column(Integer, nullable=False)
     foto = Column(BLOB, nullable=False)
     descricao = Column(VARCHAR(255), nullable=False)
+    status = Column(Integer, nullable=True)
 
-    def __init__(self, id, nome, preco, qtd, foto, descricao):
+    def __init__(self, id, nome, preco, qtd, foto, descricao, status):
         self.id = id
         self.nome = nome
         self.preco = preco
         self.qtd = qtd
         self.foto = foto
         self.descricao = descricao
+        self.status = status

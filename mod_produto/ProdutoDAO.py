@@ -14,6 +14,7 @@ class Produto(BaseModel):
     qtd: int
     descricao: str = None
     foto: bytes
+    status: int
     
 # Criar os endpoints de Produto: GET, POST, PUT, DELETE
 @router.get("/produto/{id}", tags=["produto"])
@@ -44,7 +45,7 @@ def get_produto():
 def post_produto(corpo: Produto):
     try:
         session = db.Session()
-        dados = ProdutoDB(None, corpo.nome, corpo.preco, corpo.qtd, corpo.foto, corpo.descricao)
+        dados = ProdutoDB(None, corpo.nome, corpo.preco, corpo.qtd, corpo.foto, corpo.descricao, corpo.status)
 
         session.add(dados)
         session.commit()

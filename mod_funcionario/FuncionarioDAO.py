@@ -15,6 +15,7 @@ class Funcionario(BaseModel):
     telefone: str = None
     grupo: int
     senha: str = None
+    status: int
 
 # Criar os endpoints de Funcionario: GET, POST, PUT, DELETE
 @router.get("/funcionario/", tags=["funcionario"])
@@ -35,7 +36,7 @@ def get_funcionario(id: int):
     try:
         session = db.Session()
         # busca um com filtro
-        dados = session.query(FuncionarioDB).filter(FuncionarioDB.id_funcionario == id).all()
+        dados = session.query(FuncionarioDB).filter(FuncionarioDB.id == id).all()
         return dados, 200
     except Exception as e:
         return {"msg": "Erro ao listar", "erro": str(e)}, 404
@@ -46,16 +47,27 @@ def get_funcionario(id: int):
 def post_funcionario(corpo: Funcionario):
     try:
         session = db.Session()
-        dados = FuncionarioDB(None, corpo.nome, corpo.matricula,
-
-        corpo.cpf, corpo.telefone, corpo.grupo, corpo.senha)
+        dados = FuncionarioDB(None, corpo.nome, corpo.matricula, corpo.cpf, corpo.telefone, corpo.grupo, corpo.senha, corpo.status)
 
         session.add(dados)
         session.commit()
-        return {"msg": "Cadastrado com sucesso!", "id": dados.id_funcionario}, 200
+        return {"msg": "Cadastrado com sucesso!", "id": dados.id}, 200
     except Exception as e:
         session.rollback()
         return {"msg": "Erro ao cadastrar", "erro": str(e)}, 406
+    finally:
+        session.close()
+
+# valida o cpf e senha informado pelo usuário
+@router.post("/funcionario/login/", tags=["funcionario"])
+def login_funcionario(corpo: Funcionario):
+    try:
+        session = db.Session()
+        # one(), requer que haja apenas um resultado no conjunto de resultados - é um erro se o banco de dados retornar 0, 2 ou mais resultados e uma exceção é gerada
+        dados = session.query(FuncionarioDB).filter(FuncionarioDB.matricula == corpo.matricula).filter(FuncionarioDB.senha == corpo.senha).one()
+        return dados, 200
+    except Exception as e:
+        return {"msg": "Falha de login", "erro": str(e)}, 404
     finally:
         session.close()
 
@@ -64,16 +76,17 @@ def put_funcionario(id: int, corpo: Funcionario):
     try:
         session = db.Session()
         dados = session.query(FuncionarioDB).filter(
-        FuncionarioDB.id_funcionario == id).one()
+        FuncionarioDB.id == id).one()
         dados.nome = corpo.nome
         dados.cpf = corpo.cpf
         dados.telefone = corpo.telefone
         dados.senha = corpo.senha
         dados.matricula = corpo.matricula
         dados.grupo = corpo.grupo
+        dados.status = corpo.status
         session.add(dados)
         session.commit()
-        return {"msg": "Editado com sucesso!", "id": dados.id_funcionario}, 201
+        return {"msg": "Editado com sucesso!", "id": dados.id}, 201
     except Exception as e:
         session.rollback()
         return {"msg": "Erro ao editar", "erro": str(e)}, 406
@@ -84,10 +97,10 @@ def put_funcionario(id: int, corpo: Funcionario):
 def delete_funcionario(id: int):
     try:
         session = db.Session()
-        dados = session.query(FuncionarioDB).filter(FuncionarioDB.id_funcionario == id).one()
+        dados = session.query(FuncionarioDB).filter(FuncionarioDB.id == id).one()
         session.delete(dados)
         session.commit()
-        return {"msg": "Excluido com sucesso!", "id": dados.id_funcionario}, 201
+        return {"msg": "Excluido com sucesso!", "id": dados.id}, 201
     except Exception as e:
         session.rollback()
         return {"msg": "Erro ao excluir", "erro": str(e)}, 406

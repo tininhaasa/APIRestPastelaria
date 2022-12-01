@@ -13,8 +13,9 @@ class ClienteDB(db.Base):
     pega_fiado = Column(Integer, nullable=False)
     login = Column(VARCHAR(200), nullable=False)
     senha = Column(VARCHAR(200), nullable=False)
+    status = Column(Integer, nullable=True)
 
-    def __init__(self, id, nome, matricula, cpf, telefone, pega_fiado,login, senha):
+    def __init__(self, id, nome, matricula, cpf, telefone, pega_fiado,login, senha, status):
         self.id = id
         self.nome = nome
         self.matricula = matricula
@@ -23,3 +24,4 @@ class ClienteDB(db.Base):
         self.pega_fiado = pega_fiado
         self.login = login
         self.senha = senha
+        self.status = status
