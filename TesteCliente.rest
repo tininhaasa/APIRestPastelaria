@@ -21,7 +21,8 @@ content-type: application/json
     "login" : "meu_login",
     "senha" : "bolinhas",
     "matricula" : "12345",
-    "pega_fiado" : 1
+    "pega_fiado" : 1,
+    "status" : 1
 }
 
 ### Verbo PUT – atualiza
@@ -37,7 +38,8 @@ content-type: application/json
     "login" : "meu_login",
     "senha" : "a",
     "matricula" : "12345",
-    "pega_fiado" : 2
+    "pega_fiado" : 2,
+    "status" : 1
 }
 
 ### Verbo DELETE - excluir

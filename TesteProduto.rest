@@ -19,7 +19,8 @@ content-type: application/json
     "preco" : 23.50,
     "qtd" : 20,
     "descricao" : "Descrição aleatória",
-    "foto": "umafoto"
+    "foto": "umafoto",
+    "status" : 1
 }
 
 ### Verbo PUT – atualiza
@@ -33,7 +34,8 @@ content-type: application/json
     "preco" : "23.50",
     "qtd" : "20",
     "descricao" : "Descrição aleatória",
-    "foto": "uma foto2"
+    "foto": "uma foto2",
+    "status" : 1
 }
 
 ### Verbo DELETE - excluir

@@ -17,6 +17,7 @@ class Cliente(BaseModel):
     pega_fiado: int
     login: str = None
     senha: str = None
+    status: int = 1
     
 # Criar os endpoints de Cliente: GET, POST, PUT, DELETE
 @router.get("/cliente/{id}", tags=["cliente"])
@@ -47,7 +48,7 @@ def get_cliente():
 def post_cliente(corpo: Cliente):
     try:
         session = db.Session()
-        dados = ClienteDB(None, corpo.nome, corpo.matricula, corpo.cpf, corpo.telefone, corpo.pega_fiado, corpo.login, corpo.senha)
+        dados = ClienteDB(None, corpo.nome, corpo.matricula, corpo.cpf, corpo.telefone, corpo.pega_fiado, corpo.login, corpo.senha, corpo.status)
 
         session.add(dados)
         session.commit()
@@ -70,6 +71,7 @@ def put_cliente(id: int, corpo: Cliente):
         dados.senha = corpo.senha
         dados.matricula = corpo.matricula
         dados.pega_fiado = corpo.pega_fiado
+        dados.status = corpo.status
         session.add(dados)
         session.commit()
         return {"msg": "Editado com sucesso!", "id": dados.id}, 201

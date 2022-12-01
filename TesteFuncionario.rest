@@ -22,7 +22,8 @@ content-type: application/json
     "telefone" : "49988234567",
     "senha" : "bolinhas",
     "matricula" : "12345",
-    "grupo" : 1
+    "grupo" : 1,
+    "status" : 1
 }
 
 ### Verbo PUT – atualiza
@@ -37,7 +38,8 @@ content-type: application/json
     "telefone" : "49898989",
     "senha" : "abc",
     "matricula" : "54321",
-    "grupo" : 2
+    "grupo" : 2,
+    "status" : 1
 }
 
 ### Verbo DELETE - excluir
